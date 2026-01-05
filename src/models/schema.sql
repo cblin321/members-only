@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS posts;
+
+CREATE TABLE users {
+    uid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name TEXT,
+    username TEXT,
+    password TEXT,
+    is_member BOOLEAN
+}
+
+CREATE TABLE posts {
+    pid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title TEXT,
+    body TEXT,
+    created TIMESTAMP DEFAULT NOW()
+}

@@ -1,0 +1,8 @@
+1/5
+
+    schema:
+        first name
+        last name
+        username (email)
+        pwd
+        isMember
