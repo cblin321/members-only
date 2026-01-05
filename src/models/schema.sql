@@ -1,17 +1,18 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS posts;
 
-CREATE TABLE users {
+CREATE TABLE users (
     uid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name TEXT,
-    username TEXT,
+    username TEXT UNIQUE,
     password TEXT,
     is_member BOOLEAN
-}
+);
 
-CREATE TABLE posts {
+CREATE TABLE posts (
     pid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    uid INTEGER REFERENCES users(uid) ON DELETE CASCADE,
     title TEXT,
     body TEXT,
     created TIMESTAMP DEFAULT NOW()
-}
+);
