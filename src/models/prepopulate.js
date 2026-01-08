@@ -72,7 +72,7 @@ const populate = async () => {
         console.error("something went wrong populating db", err)
         await conn.query("ROLLBACK")
     } finally {
-        await conn.release()
+        conn.release()
     }
 
 }

@@ -6,3 +6,10 @@
         username (email)
         pwd
         isMember
+
+DONE
+
+backend
+    sign up route
+    sign up form 
+    passport
