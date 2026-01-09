@@ -139,9 +139,18 @@ index_router.get("/secret", async (req, res) => {
 })
 
 index_router.post("/secret", membership_secrets_validator, generate_validators(["secret"]), async (req, res) => {
+    if (!req.isAuthenticated())
+        return res.status(401).render("secret", {
+            errors: [{ msg: "You need to be logged in to view this page." }]
+        })
     const errors = validationResult(req).errors
     if (errors.length > 0)
         return res.render("secret", { errors: errors })
+    try {
+        await auth_controller.update_member_status(req.user.username, true)
+    } catch (err) {
+        return res.status(500).render("secret", { errors: [{ msg: err.toString() }] })
+    }
     return res.render("index", { msgs: ["Congrats! You are a member"] })
 })
 

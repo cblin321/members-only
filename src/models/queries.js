@@ -13,7 +13,7 @@ async function signup_query(name, email, password) {
 async function update_member_status_query(email, status) {
     await pool.query(`
         UPDATE users SET is_member = $1 
-            WHERE username = $1;
+            WHERE username = $2;
     `, [status, email])
 }
 
