@@ -4,13 +4,21 @@ async function login_query() {
 }
 
 async function signup_query(name, email, password) {
-    pool.query(` 
+    await pool.query(` 
     INSERT INTO users (name, username, password, is_member)
         VALUES ($1, $2, $3, false);
     `, [name, email, password])
 }
 
+async function update_member_status_query(email, status) {
+    await pool.query(`
+        UPDATE users SET is_member = $1 
+            WHERE username = $1;
+    `, [status, email])
+}
+
 module.exports = {
     login_query,
-    signup_query
+    signup_query,
+    update_member_status_query
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+
+<html>
+<%- include("./partials/navbar.ejs") %>
+    <%- include("./partials/msgs.ejs") %>
+
+        <body>
+            <% if (locals.user) { %>
+                <p>
+                    Welcome, <%= locals.user.name %>!
+                </p>
+                <% } %>
+        </body>
+
+</html>
