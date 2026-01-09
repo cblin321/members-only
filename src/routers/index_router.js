@@ -11,6 +11,7 @@ const {
 
 const { SESSION_SECRET } = require("../secrets")
 const auth_controller = require("../controllers/auth_controller")
+const forum_controller = require("../controllers/forum_controller.js")
 const passport = require("passport")
 const bcrypt = require("bcryptjs")
 const LocalStrategy = require('passport-local').Strategy
@@ -146,11 +147,9 @@ index_router.post("/secret", membership_secrets_validator, generate_validators([
     const errors = validationResult(req).errors
     if (errors.length > 0)
         return res.render("secret", { errors: errors })
-    try {
-        await auth_controller.update_member_status(req.user.username, true)
-    } catch (err) {
-        return res.status(500).render("secret", { errors: [{ msg: err.toString() }] })
-    }
+    errors = await auth_controller.update_member_status(req.user.username, true)
+    if (errors.length > 0)
+        return res.status(500).render("secret", { errors: errors })
     return res.render("index", { msgs: ["Congrats! You are a member"] })
 })
 
@@ -161,6 +160,32 @@ index_router.post("/logout", async (req, res) => {
     }
 
     return res.redirect("/index", { errors: [{ msg: "You must be logged in to log out. " }] })
+})
+
+index_router.get("/post/create", async (req, res) => {
+    if (!req.isAuthenticated())
+        return res.status(401).render("create_post", { errors: [{ msg: "You must to be logged in to post. " }] })
+
+    if (!req?.user?.is_member)
+        return res.status(401).render("create_post", { errors: [{ msg: "You must to be a member to post." }] })
+
+    return res.render("create_post")
+})
+
+index_router.post("/post/create", async (req, res) => {
+    if (!req.isAuthenticated())
+        return res.status(401).render("create_post", { errors: [{ msg: "You must to be logged in to post. " }] })
+
+    if (!req?.user?.is_member)
+        return res.status(401).render("create_post", { errors: [{ msg: "You must to be a member to post." }] })
+
+    const { title, body } = req.body
+    const errors = await forum_controller.create_new_post(title, body, req.user.name)
+
+    if (errors.length > 0)
+        return res.status(500).render("create_post", { errors: errors })
+
+    return res.render("index", { msgs: ["Post created!"] })
 })
 
 module.exports = index_router

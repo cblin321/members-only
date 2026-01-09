@@ -1,7 +1,4 @@
 const pool = require("./pool")
-async function login_query() {
-
-}
 
 async function signup_query(name, email, password) {
     await pool.query(` 
@@ -17,8 +14,15 @@ async function update_member_status_query(email, status) {
     `, [status, email])
 }
 
+async function create_new_post_query(title, body, name) {
+    await pool.query(`
+        INSERT INTO posts (title, body, author)
+        VALUES (title=$1, body=$2, author=$3);
+    `, [title, body, name])
+}
+
 module.exports = {
-    login_query,
     signup_query,
-    update_member_status_query
+    update_member_status_query,
+    create_new_post_query
 }
