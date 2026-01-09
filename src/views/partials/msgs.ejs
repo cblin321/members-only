@@ -1,0 +1,8 @@
+<!DOCTYPE HTML>
+<% if (locals.msgs && Array.isArray(locals.msgs)) { %>
+    <% locals.msgs.map(msg=> { %>
+        <p>
+            <%= msg %>
+        </p>
+        <% }) %>
+            <% } %>
