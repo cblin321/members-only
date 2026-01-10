@@ -98,8 +98,12 @@ const generate_validators = (fields) => {
     return fields.map(key => body(key).notEmpty().escape())
 }
 
-index_router.get("/", (req, res) => {
-    res.render("index")
+index_router.get("/", async (req, res) => {
+    const posts = await forum_controller.get_all_posts()
+    if (posts?.errors)
+        res.status(500).render("index", { errors: posts.errors })
+    console.log("posts", posts.rows)
+    res.render("index", { posts: posts.rows })
 })
 
 index_router.get("/login", (req, res) => {
@@ -182,10 +186,14 @@ index_router.post("/post/create", async (req, res) => {
     const { title, body } = req.body
     const errors = await forum_controller.create_new_post(title, body, req.user.email)
 
-    if (errors.length > 0)
+    if (errors?.length > 0)
         return res.status(500).render("create_post", { errors: errors })
 
-    return res.render("index", { msgs: ["Post created!"] })
+
+    const posts = await forum_controller.get_all_posts()
+    if (posts?.errors)
+        res.status(500).render("index", { errors: posts.errors })
+    return res.render("index", { posts: posts.rows, msgs: ["Post created!"] })
 })
 
 module.exports = index_router

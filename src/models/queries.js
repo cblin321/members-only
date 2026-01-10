@@ -1,5 +1,13 @@
 const pool = require("./pool")
 
+async function get_all_posts_query() {
+    const { rows } = await pool.query(`
+        SELECT * FROM posts;
+    `)
+
+    return rows
+}
+
 async function signup_query(name, email, password) {
     await pool.query(` 
     INSERT INTO users (name, username, password, is_member)
@@ -14,14 +22,15 @@ async function update_member_status_query(email, status) {
     `, [status, email])
 }
 
-async function create_new_post_query(title, body, name) {
+async function create_new_post_query(title, body, email) {
     await pool.query(`
-        INSERT INTO posts (title, body, author)
-        VALUES (title=$1, body=$2, author=$3);
-    `, [title, body, name])
+        INSERT INTO posts (title, body, username)
+        VALUES ($1, $2, $3);
+    `, [title, body, email])
 }
 
 module.exports = {
+    get_all_posts_query,
     signup_query,
     update_member_status_query,
     create_new_post_query

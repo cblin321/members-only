@@ -2,20 +2,22 @@
 
 <html>
 <%- include("./partials/navbar.ejs") %>
-    <%- include("./partials/msgs.ejs") %>
+    <%- include("./partials/errors.ejs") %>
+        <%- include("./partials/msgs.ejs") %>
 
-        <body>
-            <% if (locals.user) { %>
-                <p>
-                    Welcome, <%= locals.user.name %>!
-                </p>
-                <button>
-                    <a href="/post/create">
-                        New post
-                    </a>
-                </button>
-                <% } %>
+            <body>
+                <% if (locals.user) { %>
+                    <p>
+                        Welcome, <%= locals.user.name %>!
+                    </p>
+                    <button>
+                        <a href="/post/create">
+                            New post
+                        </a>
+                    </button>
+                    <% } %>
 
-        </body>
+                        <%- include("./partials/posts.ejs") %>
+            </body>
 
 </html>

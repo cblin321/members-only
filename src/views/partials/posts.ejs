@@ -1,20 +1,22 @@
 <!DOCTYPE HTML>
 
 <div>
-    <% locals.posts.map(post=> { %>
-        <div>
-            <p>
-                <%= post.title %>
-            </p>
-            <p>
-                <%= post.body %>
-            </p>
-            <p>
-                <%= post.created %>
-            </p>
-            <p>
-                <%= locals.user ? post.author : "anonymous" %>
-            </p>
-        </div>
-        <% }) %>
+    <% if (locals.posts) { %>
+        <% locals.posts.map(post=> { %>
+            <div>
+                <p>
+                    <%= post.title %>
+                </p>
+                <p>
+                    <%= post.body %>
+                </p>
+                <p>
+                    <%= post.created %>
+                </p>
+                <p>
+                    <%= locals.user ? post.author : "anonymous" %>
+                </p>
+            </div>
+            <% }) %>
+                <% } %>
 </div>
