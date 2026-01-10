@@ -142,7 +142,7 @@ index_router.get("/secret", async (req, res) => {
 index_router.post("/secret", membership_secrets_validator, generate_validators(["secret"]), async (req, res) => {
     if (!req.isAuthenticated())
         return res.status(401).render("secret", {
-            errors: [{ msg: "You need to be logged in to view this page." }]
+            errors: [{ msg: "You need to be logged to become a member." }],
         })
     const errors = validationResult(req).errors
     if (errors.length > 0)
@@ -180,7 +180,7 @@ index_router.post("/post/create", async (req, res) => {
         return res.status(401).render("create_post", { errors: [{ msg: "You must to be a member to post." }] })
 
     const { title, body } = req.body
-    const errors = await forum_controller.create_new_post(title, body, req.user.name)
+    const errors = await forum_controller.create_new_post(title, body, req.user.email)
 
     if (errors.length > 0)
         return res.status(500).render("create_post", { errors: errors })

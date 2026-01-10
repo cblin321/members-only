@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+
+<html>
+<%- include("./partials/navbar.ejs") %>
+    <%- include("./partials/msgs.ejs") %>
+        <%- include("./partials/errors.ejs") %>
+
+            <body>
+                <form method="POST">
+                    <label for="title">
+                        Title
+                    </label>
+                    <input id="title" name="title" type="text" placeholder="Post title">
+
+                    <label for="">
+                        Body
+                    </label>
+                    <input id="body" name="body" type="text" placeholder="Post body">
+                    <button type="submit">
+                        Submit
+                    </button>
+                </form>
+            </body>
+
+</html>

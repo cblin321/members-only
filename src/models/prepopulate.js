@@ -27,12 +27,12 @@ const users = [
 
 const posts = [
     {
-        uid: 1,
+        username: "test@example.com",
         title: "hello world",
         body: "my 1st post",
     },
     {
-        uid: 2,
+        username: "test2@example.com",
         title: "1232*(&^*($#",
         body: "test",
     }
