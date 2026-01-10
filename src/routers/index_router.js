@@ -102,16 +102,17 @@ const generate_validators = (fields) => {
     return fields.map(key => body(key).notEmpty().escape())
 }
 
-async function render_index(req, res, msgs = [], errors = []) {
-    const posts = await forum_controller.get_all_posts()
-    if (posts?.errors)
-        return res.status(500).render("error", { errors: [...errors, ...posts.errors] })
-    res.render("index", { posts: posts.rows, msgs: msgs })
-
-}
 
 index_router.get("/", async (req, res) => {
-    await render_index(req, res)
+    const posts = await forum_controller.get_all_posts()
+    if (posts?.errors) {
+        posts.errors(err => req.flash("errors", err))
+        return res.status(500).render("/", { errors: req.flash("errors") })
+    }
+
+    const msgs = req.flash("msgs")
+    res.render("index", { posts: posts.rows, msgs: msgs })
+
 })
 
 index_router.get("/login", (req, res) => {
@@ -162,20 +163,22 @@ index_router.post("/secret", membership_secrets_validator, generate_validators([
     errors = await auth_controller.update_member_status(req.user.username, true)
     if (errors?.length > 0)
         return res.status(500).render("secret", { errors: errors })
-    return await render_index(req, res, msgs = ["Congrats! You are a member"])
+    req.flash("msgs", "Congrats! You are a member")
+    res.redirect("/")
 })
 
 index_router.post("/logout", async (req, res) => {
     if (req.isAuthenticated()) {
-        req.logout(async (err) => {
+        return req.logout((err) => {
             //TODO add err handler
             if (err)
                 return next(err)
-            return await render_index(req, res, msgs = ["Logged out!"])
+            req.flash("msgs", "Logged out!")
+            return res.redirect("/")
         })
     }
 
-    return await render_index(req, res, errors = [{ msg: "You must be logged in to log out. " }])
+    return res.redirect("/")
 })
 
 index_router.get("/post/create", async (req, res) => {
@@ -184,26 +187,32 @@ index_router.get("/post/create", async (req, res) => {
 
     if (!req?.user?.is_member)
         return res.status(401).render("create_post", { errors: [{ msg: "You must to be a member to post." }] })
-
-    return res.render("create_post")
+    const errors = req.flash("errors")
+    return res.render("create_post", { errors: errors })
 })
 
 index_router.post("/post/create", async (req, res) => {
-    if (!req.isAuthenticated())
-        return res.status(401).render("create_post", { errors: [{ msg: "You must to be logged in to post. " }] })
+    if (!req.isAuthenticated()) {
+        req.flash("errors", { msg: "You must to be logged in to post. " })
+        return res.status(401).redirect("/post/create")
+    }
 
-    if (!req?.user?.is_member)
-        return res.status(401).render("create_post", { errors: [{ msg: "You must to be a member to post." }] })
+    if (!req?.user?.is_member) {
+        req.flash("errors", { msg: "You must be a member to post." })
+        return res.status(401).redirect("/post/create")
+    }
 
     const { title, body } = req.body
     const errors = await forum_controller.create_new_post(title, body, req.user.username)
 
-    if (errors?.length > 0)
-        return res.status(500).render("create_post", { errors: errors })
+    if (errors?.length > 0) {
+        errors.forEach(err => req.flash("errors", err))
+        return res.status(500).redirect("/post/create")
+    }
 
 
-    await render_index(req, res, msgs = ["Post created!"])
-    return
+    req.flash("msgs", "Post created!")
+    return res.redirect("/")
 })
 
 module.exports = index_router

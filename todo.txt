@@ -17,11 +17,15 @@ backend
 DONE
 
 testing
-    become a member
+    become a member (working)
     log in
     make a post
+        as a non-member (working)
+        as a member (working)
     read posts
+        as a non-member (working)
+        as a member (working)
     log out
-    sign up
+    sign up (working)
 
 refactor err handling, use flash messaging
