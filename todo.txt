@@ -18,14 +18,22 @@ DONE
 
 testing
     become a member (working)
-    log in
+    log in (working)
+        validation
     make a post
         as a non-member (working)
         as a member (working)
+        validation
     read posts
         as a non-member (working)
         as a member (working)
-    log out
+    log out (working)
     sign up (working)
+        validation
 
 refactor err handling, use flash messaging
+
+1/10
+
+styling
+input validation on login, signup, and posts

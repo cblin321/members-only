@@ -14,16 +14,13 @@ const auth_controller = require("../controllers/auth_controller")
 const forum_controller = require("../controllers/forum_controller.js")
 const passport = require("passport")
 const bcrypt = require("bcryptjs")
-const { render } = require("ejs")
 const flash = require("connect-flash")
 const LocalStrategy = require('passport-local').Strategy
 
 passport.use(
     new LocalStrategy(async (username, password, done) => {
         try {
-            console.log(username, password)
             const { rows } = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-            console.log("rows", rows)
             const user = rows[0];
 
             if (!user) {
@@ -33,7 +30,6 @@ passport.use(
             if (!bcrypt.compare(user.password, password)) {
                 return done(null, false, { message: "Incorrect password" });
             }
-            console.log("successful login")
             return done(null, user);
         } catch (err) {
             return done(err);
@@ -119,7 +115,7 @@ index_router.get("/login", (req, res) => {
     res.render("login")
 })
 
-index_router.post("/login", passport.authenticate("local", {
+index_router.post("/login", generate_validators(["username", "password"]), passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
 }))
@@ -191,7 +187,10 @@ index_router.get("/post/create", async (req, res) => {
     return res.render("create_post", { errors: errors })
 })
 
-index_router.post("/post/create", async (req, res) => {
+index_router.post("/post/create", generate_validators([
+    "title",
+    "body"
+]), async (req, res) => {
     if (!req.isAuthenticated()) {
         req.flash("errors", { msg: "You must to be logged in to post. " })
         return res.status(401).redirect("/post/create")
