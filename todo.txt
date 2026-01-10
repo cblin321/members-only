@@ -13,3 +13,15 @@ backend
     sign up route
     sign up form 
     passport
+
+DONE
+
+testing
+    become a member
+    log in
+    make a post
+    read posts
+    log out
+    sign up
+
+refactor err handling, use flash messaging

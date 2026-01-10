@@ -2,9 +2,9 @@ const pool = require("./pool")
 
 async function get_all_posts_query() {
     const { rows } = await pool.query(`
-        SELECT * FROM posts;
+        SELECT * FROM posts JOIN users ON posts.username = users.username;
     `)
-
+    console.log("uqer posts", rows)
     return rows
 }
 

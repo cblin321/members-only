@@ -14,6 +14,8 @@ const auth_controller = require("../controllers/auth_controller")
 const forum_controller = require("../controllers/forum_controller.js")
 const passport = require("passport")
 const bcrypt = require("bcryptjs")
+const { render } = require("ejs")
+const flash = require("connect-flash")
 const LocalStrategy = require('passport-local').Strategy
 
 passport.use(
@@ -75,6 +77,8 @@ index_router.use((req, res, next) => {
     next()
 })
 
+index_router.use(flash())
+
 //validate name & email
 const credentials_validator = [
     body("email").isEmail().withMessage("Must provide a valid email")
@@ -98,12 +102,16 @@ const generate_validators = (fields) => {
     return fields.map(key => body(key).notEmpty().escape())
 }
 
-index_router.get("/", async (req, res) => {
+async function render_index(req, res, msgs = [], errors = []) {
     const posts = await forum_controller.get_all_posts()
     if (posts?.errors)
-        res.status(500).render("index", { errors: posts.errors })
-    console.log("posts", posts.rows)
-    res.render("index", { posts: posts.rows })
+        return res.status(500).render("error", { errors: [...errors, ...posts.errors] })
+    res.render("index", { posts: posts.rows, msgs: msgs })
+
+}
+
+index_router.get("/", async (req, res) => {
+    await render_index(req, res)
 })
 
 index_router.get("/login", (req, res) => {
@@ -148,22 +156,26 @@ index_router.post("/secret", membership_secrets_validator, generate_validators([
         return res.status(401).render("secret", {
             errors: [{ msg: "You need to be logged to become a member." }],
         })
-    const errors = validationResult(req).errors
+    let errors = validationResult(req).errors
     if (errors.length > 0)
         return res.render("secret", { errors: errors })
     errors = await auth_controller.update_member_status(req.user.username, true)
-    if (errors.length > 0)
+    if (errors?.length > 0)
         return res.status(500).render("secret", { errors: errors })
-    return res.render("index", { msgs: ["Congrats! You are a member"] })
+    return await render_index(req, res, msgs = ["Congrats! You are a member"])
 })
 
 index_router.post("/logout", async (req, res) => {
     if (req.isAuthenticated()) {
-        req.logout()
-        return res.status(200).render("/index")
+        req.logout(async (err) => {
+            //TODO add err handler
+            if (err)
+                return next(err)
+            return await render_index(req, res, msgs = ["Logged out!"])
+        })
     }
 
-    return res.redirect("/index", { errors: [{ msg: "You must be logged in to log out. " }] })
+    return await render_index(req, res, errors = [{ msg: "You must be logged in to log out. " }])
 })
 
 index_router.get("/post/create", async (req, res) => {
@@ -184,16 +196,14 @@ index_router.post("/post/create", async (req, res) => {
         return res.status(401).render("create_post", { errors: [{ msg: "You must to be a member to post." }] })
 
     const { title, body } = req.body
-    const errors = await forum_controller.create_new_post(title, body, req.user.email)
+    const errors = await forum_controller.create_new_post(title, body, req.user.username)
 
     if (errors?.length > 0)
         return res.status(500).render("create_post", { errors: errors })
 
 
-    const posts = await forum_controller.get_all_posts()
-    if (posts?.errors)
-        res.status(500).render("index", { errors: posts.errors })
-    return res.render("index", { posts: posts.rows, msgs: ["Post created!"] })
+    await render_index(req, res, msgs = ["Post created!"])
+    return
 })
 
 module.exports = index_router
