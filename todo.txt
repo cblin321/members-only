@@ -36,4 +36,6 @@ refactor err handling, use flash messaging
 1/10
 
 styling
-input validation on login, signup, and posts
+admins
+    update schema with is_admin
+    update views with link to admin view

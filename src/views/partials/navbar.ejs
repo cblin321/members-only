@@ -13,22 +13,29 @@
         <a href="/signup">Signup</a>
     </button>
 
+
+    <% if (locals.user && locals.user.is_member) { %>
+    <button>
+        <a href="/admin">Admin</a>
+    </button>
+    <% } %>
+
     <% if (locals.user && !locals.user.is_member) { %>
-        <button>
-            <a href="/secret">Secret</a>
+    <button>
+        <a href="/secret">Secret</a>
+    </button>
+
+    <% } %>
+
+    <% if (locals.user) { %>
+    <p>
+        <%= locals.user.name %>
+    </p>
+    <form action="/logout" method="POST">
+        <button type="submit">
+            Logout
         </button>
+    </form>
 
-        <% } %>
-
-            <% if (locals.user) { %>
-                <p>
-                    <%= locals.user.name %>
-                </p>
-                <form action="/logout" method="POST">
-                    <button type="submit">
-                        Logout
-                    </button>
-                </form>
-
-                <% } %>
+    <% } %>
 </nav>

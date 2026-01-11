@@ -3,21 +3,21 @@
 <div>
     <h1>Posts</h1>
     <% if (locals.posts) { %>
-        <% locals.posts.map(post=> { %>
-            <div>
-                <p>
-                    <%= post.title %>
-                </p>
-                <p>
-                    <%= post.body %>
-                </p>
-                <p>
-                    <%= post.created %>
-                </p>
-                <p>
-                    <%= locals.user && locals.user.is_member ? post.name : "anonymous" %>
-                </p>
-            </div>
-            <% }) %>
-                <% } %>
+    <% locals.posts.map(post=> { %>
+    <div>
+        <p>
+            <%= post.title %>
+        </p>
+        <p>
+            <%= post.body %>
+        </p>
+        <p>
+            <%= post.created %>
+        </p>
+        <p>
+            <%= locals.user && locals.user.is_member ? post.name : "anonymous" %>
+        </p>
+    </div>
+    <% }) %>
+    <% } %>
 </div>

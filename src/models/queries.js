@@ -4,7 +4,6 @@ async function get_all_posts_query() {
     const { rows } = await pool.query(`
         SELECT * FROM posts JOIN users ON posts.username = users.username;
     `)
-    console.log("uqer posts", rows)
     return rows
 }
 
@@ -22,6 +21,13 @@ async function update_member_status_query(email, status) {
     `, [status, email])
 }
 
+async function update_admin_status_query(email, status) {
+    await pool.query(`
+        UPDATE users SET is_admin = $1
+            WHERE username = $2;
+    `, [status, email])
+}
+
 async function create_new_post_query(title, body, email) {
     await pool.query(`
         INSERT INTO posts (title, body, username)
@@ -33,5 +39,6 @@ module.exports = {
     get_all_posts_query,
     signup_query,
     update_member_status_query,
+    update_admin_status_query,
     create_new_post_query
 }

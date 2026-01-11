@@ -9,19 +9,22 @@ const users = [
         name: "test 1",
         password: bcrypt.hashSync("123", 10),
         username: "test@example.com",
-        is_member: true
+        is_member: true,
+        is_admin: true,
     },
     {
         name: "test 2",
         password: bcrypt.hashSync("456", 10),
         username: "test2@example.com",
-        is_member: true
+        is_member: true,
+        is_admin: false,
     },
     {
         name: "test 3",
         password: bcrypt.hashSync("789", 10),
         username: "test3@example.com",
-        is_member: false
+        is_member: false,
+        is_admin: false,
     }
 ]
 

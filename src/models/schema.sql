@@ -17,7 +17,8 @@ CREATE TABLE users (
     username TEXT PRIMARY KEY,
     name TEXT,
     password TEXT,
-    is_member BOOLEAN
+    is_member BOOLEAN,
+    is_admin BOOLEAN
 );
 
 CREATE TABLE posts (

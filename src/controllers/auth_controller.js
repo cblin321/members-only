@@ -2,9 +2,6 @@ const queries = require("../models/queries.js")
 const bcrypt = require("bcryptjs")
 const { MEMBERSHIP_PASS } = require("../secrets")
 
-async function login() {
-
-}
 
 async function signup(name, email, password) {
     const hash = await bcrypt.hash(password, 10)
@@ -26,8 +23,16 @@ async function update_member_status(email, status) {
     }
 }
 
+async function update_admin_status(email, status) {
+    try {
+        await queries.update_admin_status_query(email, status)
+    } catch (err) {
+        return [{ msg: err.toString() }]
+    }
+}
+
 module.exports = {
-    login,
     signup,
     update_member_status,
+    update_admin_status
 }
