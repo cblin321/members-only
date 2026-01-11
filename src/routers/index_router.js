@@ -120,16 +120,21 @@ index_router.get("/", async (req, res) => {
 });
 
 index_router.get("/login", (req, res) => {
-    res.render("login");
+    const errors = req.flash("error").map((err) => ({
+        msg: err,
+    }));
+    res.render("login", {
+        errors: errors,
+    });
 });
 
 index_router.post(
     "/login",
     generate_validators(["username", "password"]),
-    (req, res, next) => {},
     passport.authenticate("local", {
         successRedirect: "/",
         failureRedirect: "/login",
+        failureFlash: true,
     }),
 );
 
