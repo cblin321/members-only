@@ -246,6 +246,15 @@ index_router.post(
     },
 );
 
+index_router.post("post/delete", async (req, res) => {
+    const errors =  
+    if (errors?.length > 0) {
+        errors.forEach((err) => req.flash("errors", err));
+        return res.status(500).redirect("/post/create");
+    }
+
+});
+
 index_router.get(
     "/admin",
     generate_validators(["password"]),

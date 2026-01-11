@@ -17,6 +17,9 @@
         <p>
             <%= locals.user && locals.user.is_member ? post.name : "anonymous" %>
         </p>
+        <form action="/post/delete/<%= post.pid %>" method="POST">
+            <button type="submit">Delete</button>
+        </form>
     </div>
     <% }) %>
     <% } %>

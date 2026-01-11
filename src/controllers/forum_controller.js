@@ -1,25 +1,35 @@
-const queries = require("../models/queries.js")
+const queries = require("../models/queries.js");
 async function create_new_post(title, body, email) {
     try {
-        await queries.create_new_post_query(title, body, email)
+        await queries.create_new_post_query(title, body, email);
     } catch (err) {
-        console.error(err)
-        return [{ msg: err.toString() }]
+        console.error(err);
+        return [{ msg: err.toString() }];
+    }
+}
+
+async function delete_post(pid) {
+    try {
+        await queries.delete_post_query(pid);
+    } catch (err) {
+        console.error(err);
+        return [{ msg: err.toString() }];
     }
 }
 
 async function get_all_posts() {
     try {
-        const rows = await queries.get_all_posts_query()
-        return { rows: rows }
+        const rows = await queries.get_all_posts_query();
+        return { rows: rows };
     } catch (err) {
         return {
             errors: [{ msg: err.toString() }],
-        }
+        };
     }
 }
 
 module.exports = {
     get_all_posts,
-    create_new_post
-}
+    create_new_post,
+    delete_post,
+};
