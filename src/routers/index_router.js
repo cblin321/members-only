@@ -246,13 +246,15 @@ index_router.post(
     },
 );
 
-index_router.post("post/delete", async (req, res) => {
-    const errors =  
+index_router.post("post/delete/:pid", async (req, res) => {
+    const { pid } = req.params;
+    const errors = await forum_controller.delete_post(pid);
     if (errors?.length > 0) {
         errors.forEach((err) => req.flash("errors", err));
         return res.status(500).redirect("/post/create");
     }
-
+    req.flash("msgs", "Post deleted");
+    return res.redirect("/index");
 });
 
 index_router.get(

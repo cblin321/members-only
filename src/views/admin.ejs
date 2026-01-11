@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+
+<html>
+<%- include("./partials/navbar.ejs") %>
+<%- include("./partials/errors.ejs") %>
+<%- include("./partials/msgs.ejs") %>
+
+<body>
+    <form method="POST">
+        <label for="password">Super secret password</label>
+        <input name="password" id="password" type="text" placeholder="Admin password">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
