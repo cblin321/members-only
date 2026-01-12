@@ -30,7 +30,8 @@ passport.use(
                 return done(null, false, { message: "Incorrect username" });
             }
 
-            if (!(await bcrypt.compare(user.password, password))) {
+            const match = await bcrypt.compare(password, user.password);
+            if (!match) {
                 return done(null, false, { message: "Incorrect password" });
             }
             return done(null, user);
@@ -73,13 +74,12 @@ index_router.use(
         },
     }),
 );
+index_router.use(flash());
 index_router.use(passport.session());
 index_router.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
-
-index_router.use(flash());
 
 //validate name & email
 const credentials_validator = [
@@ -120,9 +120,7 @@ index_router.get("/", async (req, res) => {
 });
 
 index_router.get("/login", (req, res) => {
-    const errors = req.flash("error").map((err) => ({
-        msg: err,
-    }));
+    const errors = req.flash("errors");
     res.render("login", {
         errors: errors,
     });
@@ -131,11 +129,20 @@ index_router.get("/login", (req, res) => {
 index_router.post(
     "/login",
     generate_validators(["username", "password"]),
-    passport.authenticate("local", {
-        successRedirect: "/",
-        failureRedirect: "/login",
-        failureFlash: true,
-    }),
+    (req, res, next) => {
+        passport.authenticate("local", (err, user, info) => {
+            if (err) {
+                next(err);
+            }
+
+            if (!user) {
+                req.flash("errors", { msg: "Invalid username/password" });
+                return req.session.save(() => res.redirect("/login"));
+            }
+
+            req.login(user, () => req.session.save(() => res.redirect("/")));
+        })(req, res, next);
+    },
 );
 
 index_router.get("/signup", (req, res) => {
@@ -185,16 +192,20 @@ index_router.post(
         if (errors?.length > 0)
             return res.status(500).render("secret", { errors: errors });
         req.flash("msgs", "Congrats! You are a member");
-        res.redirect("/");
+        return req.session.save(() => {
+            res.redirect("/");
+        });
     },
 );
 
-index_router.post("/logout", async (req, res) => {
+index_router.post("/logout", async (req, res, next) => {
     if (req.isAuthenticated()) {
         return req.logout((err) => {
             if (err) return next(err);
             req.flash("msgs", "Logged out!");
-            return res.redirect("/");
+            return req.session.save(() => {
+                res.redirect("/");
+            });
         });
     }
 
@@ -212,7 +223,9 @@ index_router.get("/post/create", async (req, res) => {
             errors: [{ msg: "You must to be a member to post." }],
         });
     const errors = req.flash("errors");
-    return res.render("create_post", { errors: errors });
+    return req.session.save(() =>
+        res.render("create_post", { errors: errors }),
+    );
 });
 
 index_router.post(
@@ -221,12 +234,16 @@ index_router.post(
     async (req, res) => {
         if (!req.isAuthenticated()) {
             req.flash("errors", { msg: "You must to be logged in to post. " });
-            return res.status(401).redirect("/post/create");
+            return req.session.save(() =>
+                res.status(401).redirect("/post/create"),
+            );
         }
 
         if (!req?.user?.is_member) {
             req.flash("errors", { msg: "You must be a member to post." });
-            return res.status(401).redirect("/post/create");
+            return req.session.save(() =>
+                res.status(401).redirect("/post/create"),
+            );
         }
 
         const { title, body } = req.body;
@@ -238,62 +255,90 @@ index_router.post(
 
         if (errors?.length > 0) {
             errors.forEach((err) => req.flash("errors", err));
-            return res.status(500).redirect("/post/create");
+            return req.session.save(() =>
+                res.status(500).redirect("/post/create"),
+            );
         }
 
         req.flash("msgs", "Post created!");
-        return res.redirect("/");
+        return req.session.save(() => res.redirect("/"));
     },
 );
 
-index_router.post("post/delete/:pid", async (req, res) => {
+index_router.post("/post/delete/:pid", async (req, res) => {
     const { pid } = req.params;
     const errors = await forum_controller.delete_post(pid);
+    if (!req.isAuthenticated()) {
+        req.flash("errors", { msg: "You must be logged in to delete." });
+        return req.session.save(() => res.status(401).redirect("/"));
+    }
+
+    if (!req.user.is_admin) {
+        req.flash("errors", { msg: "You must be an admin to delete." });
+        return req.session.save(() => res.status(401).redirect("/"));
+    }
+
     if (errors?.length > 0) {
         errors.forEach((err) => req.flash("errors", err));
-        return res.status(500).redirect("/post/create");
+        return req.session.save(() => res.status(500).redirect("/"));
     }
-    req.flash("msgs", "Post deleted");
-    return res.redirect("/index");
+    req.flash("msgs", "Post deleted!");
+    return req.session.save(() => res.redirect("/"));
 });
 
-index_router.get(
+index_router.get("/admin", async (req, res) => {
+    if (!req?.isAuthenticated()) {
+        req.flash("errors", {
+            msg: "You must be logged in to become an admin.",
+        });
+        return req.session.save(() => res.redirect("/admin"));
+    }
+
+    if (!req?.user?.is_member) {
+        req.flash("errors", {
+            msg: "You must be an member to become an admin.",
+        });
+        return req.session.save(() => res.redirect("/admin"));
+    }
+    const errors = req.flash("errors");
+
+    return req.session.save(() => res.render("admin", { errors: errors }));
+});
+
+index_router.post(
     "/admin",
     generate_validators(["password"]),
     async (req, res) => {
-        if (!req?.user?.is_member) {
-            req.flash("errors", {
-                msg: "You must be an member to become an admin.",
-            });
-            return res.redirect("/admin");
-        }
-
         if (!req?.isAuthenticated()) {
             req.flash("errors", {
                 msg: "You must be logged in to become an admin.",
             });
-            return res.redirect("/admin");
+            return req.session.save(() => res.redirect("/admin"));
         }
 
-        res.render("admin", { errors: req.flash("errors") });
+        if (!req?.user?.is_member) {
+            req.flash("errors", {
+                msg: "You must be an member to become an admin.",
+            });
+            return req.session.save(() => res.redirect("/admin"));
+        }
+
+        const { password } = req.body;
+        if (password !== ADMIN_PASS) {
+            req.flash("errors", { msg: "Admin password was incorrect" });
+            return req.session.save(() => res.status(401).redirect("/admin"));
+        }
+
+        const email = req.user.username;
+        const errors = await auth_controller.update_admin_status(email, true);
+        if (errors?.length > 0) {
+            errors.forEach((err) => req.flash("errors", err));
+            return req.session.save(() => res.status(500).redirect("/admin"));
+        }
+
+        req.flash("msgs", "You are now an admin.");
+        return req.session.save(() => res.redirect("/"));
     },
 );
-
-index_router.post("/admin", async (req, res) => {
-    const { password } = req.body;
-    if (password !== ADMIN_PASS) {
-        req.flash("errors", { msg: "Admin password was incorrect" });
-        return res.status(401).redirect("/admin");
-    }
-
-    const errors = await auth_controller.update_admin_status(email, true);
-    if (errors?.length > 0) {
-        errors.forEach((err) => req.flash("errors", err));
-        return res.status(500).redirect("/admin");
-    }
-
-    req.flash("msgs", "You are now an admin.");
-    return res.redirect("/");
-});
 
 module.exports = index_router;

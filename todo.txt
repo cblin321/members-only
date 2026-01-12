@@ -36,8 +36,3 @@ refactor err handling, use flash messaging
 1/10
 
 styling
-admins
-    update schema with is_admin
-    fix bug with login not showing popup on redirect
-    fix login
-    update views with link to admin view

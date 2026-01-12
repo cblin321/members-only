@@ -5,6 +5,7 @@
 </head>
 
 <nav>
+    <% if (!locals.user) { %>
     <button>
         <a href="/login">Login</a>
     </button>
@@ -12,9 +13,9 @@
     <button>
         <a href="/signup">Signup</a>
     </button>
+    <% } %>
 
-
-    <% if (locals.user && locals.user.is_member) { %>
+    <% if (locals.user && locals.user.is_member && !locals.user.is_admin) { %>
     <button>
         <a href="/admin">Admin</a>
     </button>
