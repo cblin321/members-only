@@ -1,25 +1,39 @@
 <!DOCTYPE HTML>
 
-<div>
+<head>
+    <link rel="stylesheet" href="./posts.css">
+</head>
+
+<div class="header-container">
     <h1>Posts</h1>
+    <button class="primary-btn">
+        <a href="/post/create">
+            New post
+        </a>
+    </button>
+</div>
+<div class="post-container">
     <% if (locals.posts) { %>
     <% locals.posts.map(post=> { %>
-    <div>
-        <p>
+    <div class="card">
+        <div class="card-header-container">
+            <p class="post-author">
+                <%= locals.user && locals.user.is_member ? post.name : "anon" %>
+            </p>
+            <p class="post-date">
+                <%= post.created %>
+            </p>
+        </div>
+
+        <h2 class="post-title">
             <%= post.title %>
-        </p>
-        <p>
+        </h2>
+        <p class="post-body">
             <%= post.body %>
         </p>
-        <p>
-            <%= post.created %>
-        </p>
-        <p>
-            <%= locals.user && locals.user.is_member ? post.name : "anonymous" %>
-        </p>
         <% if (locals.user && locals.user.is_admin) { %>
-        <form action="/post/delete/<%= post.pid %>" method="POST">
-            <button type="submit">Delete</button>
+        <form action="/post/delete/<%= post.pid %>" method="POST" class="post-delete">
+            <button class="primary-btn" type="submit">Delete</button>
         </form>
         <% } %>
     </div>

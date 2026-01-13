@@ -26,6 +26,6 @@ CREATE TABLE posts (
     username TEXT REFERENCES users(username) ON DELETE CASCADE ON UPDATE CASCADE,
     title TEXT,
     body TEXT,
-    created TIMESTAMP DEFAULT NOW()
+    created TIMESTAMP DEFAULT CLOCK_TIMESTAMP()
 );
 

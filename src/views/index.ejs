@@ -6,18 +6,15 @@
 <%- include("./partials/msgs.ejs") %>
 
 <body>
-    <% if (locals.user) { %>
-    <p>
-        Welcome, <%= locals.user.name %>!
-    </p>
-    <button>
-        <a href="/post/create">
-            New post
-        </a>
-    </button>
-    <% } %>
+    <div class="content">
+        <% if (locals.user) { %>
+        <p class="welcome-msg">
+            Welcome, <%= locals.user.name %>!
+        </p>
+        <% } %>
+        <%- include("./partials/posts.ejs") %>
+    </div>
 
-    <%- include("./partials/posts.ejs") %>
 </body>
 
 </html>
