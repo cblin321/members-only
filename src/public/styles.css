@@ -9,5 +9,22 @@ h2 {
 
 html {
     color: var(--font-color);
-    background-color: var(--bg);
+    background-color: var(--bg-500);
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Nunito Sans';
+}
+
+a:visited {
+    color: inherit;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('NunitoSans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf');
 }
