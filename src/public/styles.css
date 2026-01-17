@@ -24,7 +24,37 @@ a:visited {
     color: inherit;
 }
 
-@font-face {
-    font-family: 'Nunito Sans';
-    src: url('NunitoSans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf');
+button:hover {
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.card {
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    padding: var(--space-28);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-600);
+}
+
+.separator {
+    display: inline-block;
+    height: 1px;
+    border-radius: 8px;
+    background-color: var(--border);
+}
+
+.primary-btn {
+    border-radius: 8px;
+    border: none;
+    background-color: var(--accept);
+    color: var(--font-color);
 }

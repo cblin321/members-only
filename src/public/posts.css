@@ -1,11 +1,5 @@
 @import "./globals.css";
 
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .header-container {
     display: flex;
     flex-direction: row;
@@ -24,26 +18,11 @@
 }
 
 .card {
-    box-sizing: border-box;
-    border: 1px solid var(--border);
-    padding: var(--space-28);
-    border-radius: 8px;
     width: 50%;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-600);
-    /*    "author date"
-        "title"
-        "body"
-        "delete"; */
 }
 
-.seperator {
-    display: inline-block;
+.separator {
     width: 50%;
-    height: 1px;
-    border-radius: 8px;
-    background-color: var(--border);
     margin: var(--space-12) 0 var(--space-28);
 }
 
@@ -75,12 +54,4 @@
 
 .post-author {
     color: var(--font-color-muted);
-}
-
-.primary-btn {
-    border-radius: 8px;
-    border: none;
-    background-color: var(--accent-500);
-    background-color: var(--complementary-600);
-    color: var(--font-color);
 }

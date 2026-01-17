@@ -36,3 +36,11 @@ refactor err handling, use flash messaging
 1/10
 
 styling
+    login
+    errors
+    registration
+        member registration
+        admin registration
+    posts
+    navbar
+    create post

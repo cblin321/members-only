@@ -1,0 +1,64 @@
+@import "./globals.css";
+
+:root {
+    --content-width: 30%;
+}
+
+h1 {
+    font-weight: var(--font-weight-normal);
+    text-align: left;
+    width: var(--content-width);
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: var(--content-width);
+    gap: var(--space-12);
+    margin-top: var(--space-28);
+}
+
+form * {
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+form> :nth-last-child(2) {
+    margin-bottom: var(--space-16);
+}
+
+form input {
+    border: 1px solid var(--border);
+}
+
+input {
+    height: var(--space-40);
+    font-size: 1em;
+    background-color: var(--bg-600);
+}
+
+input::placeholder {
+    color: var(--font-color-muted);
+    font-size: 1em;
+}
+
+.separator {
+    width: var(--content-width);
+}
+
+.primary-btn {
+    padding: var(--space-8);
+    font-size: 1.05em;
+}
+
+.acct-reminder {
+    color: var(--font-color-muted) !important;
+    font-size: var(--font-size-sm);
+}
+
+.acct-reminder:hover {
+    color: var(--font-color) !important;
+}

@@ -1,7 +1,9 @@
+@import "./styles.css";
+
 :root {
     --accent-500: hsl(262 20.8% 38.2%);
     --complementary-500: hsl(342, 41%, 38%);
-    --complementary-600: hsl(145 41% 38%);
+    --accept: hsl(145 41% 38%);
 
     --bg-500: hsl(262 3.6% 6.8%);
     --bg-600: hsl(262 6.8% 12.2%);
@@ -35,4 +37,9 @@
     /* Borders */
     --border-radius: 0.5rem;
     --border-width: 1px;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('NunitoSans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf');
 }
