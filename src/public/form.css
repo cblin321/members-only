@@ -62,3 +62,9 @@ input::placeholder {
 .acct-reminder:hover {
     color: var(--font-color) !important;
 }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}

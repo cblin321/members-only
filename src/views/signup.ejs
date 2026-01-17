@@ -14,27 +14,32 @@
         <h1>Sign up for an account</h1>
         <span class="separator"></span>
         <form method="POST">
-            <div class="input-group">
-                <label for="name">Full Name</label>
-                <input id="name" name="name" type="text" placeholder="Full Name">
+
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input id="name" name="name" type="text" placeholder="Full Name">
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input name="email" type="email" placeholder="Email">
+                </div>
             </div>
 
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input name="email" type="email" placeholder="Email">
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input name="password" type="password" placeholder="Password">
+                </div>
+
+                <div class="input-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input name="confirm_password" type="password" placeholder="Confirm Password">
+                </div>
             </div>
 
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input name="password" type="password" placeholder="Password">
-            </div>
-
-            <div class="input-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input name="confirm_password" type="password" placeholder="Confirm Password">
-            </div>
-
-            <a href="/login" class="acc-reminder">Already have an account? Log in here!</a>
+            <a class="acct-reminder" href="/login">Already have an account? Log in here!</a>
             <button class="primary-btn" type="submit">Sign up</button>
         </form>
     </div>
