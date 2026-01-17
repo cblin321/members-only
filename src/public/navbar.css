@@ -1,5 +1,27 @@
 nav {
+    box-sizing: border-box;
+    padding: var(--space-12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--accent-500);
+    box-shadow: 6px 0 12px var(--accent-500);
+    margin-bottom: var(--space-40);
+    width: 100%;
+}
+
+.nav-options {
     display: flex;
     justify-content: space-evenly;
-    background-color: var(--accent-500);
+    min-width: 30%;
+}
+
+nav a,
+nav a:visited {
+    font-size: var(--font-size-lg);
+    color: var(--font-color-muted-accent);
+}
+
+nav a:hover {
+    color: var(--font-color);
 }

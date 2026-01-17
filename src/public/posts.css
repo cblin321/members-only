@@ -16,16 +16,17 @@
 
 .header-container h1 {
     line-height: 1;
+    font-weight: var(--font-weight-normal);
 }
 
 .header-container button {
-    padding: var(--space-12);
+    padding: var(--space-8);
 }
 
 .card {
     box-sizing: border-box;
     border: 1px solid var(--border);
-    padding: var(--space-40);
+    padding: var(--space-28);
     border-radius: 8px;
     width: 50%;
     display: flex;
@@ -50,7 +51,7 @@
     display: flex;
     column-gap: var(--space-12);
     font-size: var(--font-size-sm);
-    /* margin-bottom: var(--space-4); */
+    margin-bottom: var(--space-4);
 }
 
 .post-container {
@@ -63,7 +64,6 @@
 
 .post-title {
     /* line-height: 1.05; */
-    margin-bottom: var(--space-12);
 }
 
 
@@ -73,11 +73,14 @@
     color: var(--font-color-muted);
 }
 
-.post-author {}
+.post-author {
+    color: var(--font-color-muted);
+}
 
 .primary-btn {
     border-radius: 8px;
     border: none;
     background-color: var(--accent-500);
+    background-color: var(--complementary-600);
     color: var(--font-color);
 }

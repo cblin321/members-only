@@ -1,10 +1,14 @@
 :root {
     --accent-500: hsl(262 20.8% 38.2%);
-    --bg-500: hsl(262 8.6% 6.8%);
-    --bg-600: hsl(262 12.8% 12.2%);
+    --complementary-500: hsl(342, 41%, 38%);
+    --complementary-600: hsl(145 41% 38%);
+
+    --bg-500: hsl(262 3.6% 6.8%);
+    --bg-600: hsl(262 6.8% 12.2%);
     --border: hsl(262 12.7% 30.6%);
     --font-color: hsl(262 59% 93.2%);
     --font-color-muted: hsl(262 15% 70.2%);
+    --font-color-muted-accent: hsl(262 20.8% 80.2%);
 
     /* Typography */
     --font-family-base: sans-serif;
