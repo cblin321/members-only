@@ -10,18 +10,37 @@ nav {
     width: 100%;
 }
 
+.logo {
+    font-weight: var(--font-weight-normal);
+}
+
 .nav-options {
     display: flex;
     justify-content: space-between;
     min-width: 12em;
 }
 
-nav a,
-nav a:visited {
+.nav-option,
+.nav-option:visited {
     font-size: var(--font-size-lg);
     color: var(--font-color-muted-accent);
 }
 
-nav a:hover {
+.nav-option:hover {
     color: var(--font-color);
+}
+
+.icon {
+    width: var(--font-size-lg);
+    height: var(--font-size-lg);
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.user-container p {
+    line-height: 1;
 }

@@ -32,6 +32,13 @@ form> :nth-last-child(2) {
 
 form input {
     border: 1px solid var(--border);
+    color: var(--font-color);
+    padding-left: var(--space-8);
+}
+
+.normal-icon {
+    height: var(--font-size-base);
+    width: var(--font-size-base);
 }
 
 input {

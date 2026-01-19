@@ -58,3 +58,26 @@ button:hover {
     background-color: var(--accept);
     color: var(--font-color);
 }
+
+input:focus {
+    outline: none;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.menu-list {
+    position: absolute;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown ul {
+    display: none;
+}
+
+.dropdown.active ul {
+    display: block;
+}
