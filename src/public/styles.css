@@ -1,3 +1,5 @@
+@import "./globals.css";
+
 body,
 html,
 p,
@@ -69,6 +71,7 @@ input:focus {
 
 .menu-list {
     position: absolute;
+    right: 0;
     list-style-type: none;
     padding: 0;
     margin: 0;

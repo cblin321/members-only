@@ -1,6 +1,6 @@
 nav {
     box-sizing: border-box;
-    padding: var(--space-12);
+    padding: var(--space-12) var(--space-60);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,4 +43,8 @@ nav {
 
 .user-container p {
     line-height: 1;
+}
+
+.dropdown-chevron {
+    width: var(--font-size-base);
 }

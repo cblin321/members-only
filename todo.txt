@@ -36,11 +36,13 @@ refactor err handling, use flash messaging
 1/10
 
 styling
-    login
+    login (done)
+    registration (done)
+    msgs
     errors
-    registration
         member registration
         admin registration
-    posts
-    navbar
-    create post
+    posts (in progress)
+        delete button alignment
+    navbar (in progress)
+    create post (in progress)

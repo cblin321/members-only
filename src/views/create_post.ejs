@@ -1,5 +1,9 @@
 <!DOCTYPE HTML>
 
+<head>
+    <link rel="stylesheet" href="../form.css">
+</head>
+
 <html>
 <%- include("./partials/navbar.ejs") %>
 <%- include("./partials/msgs.ejs") %>
@@ -12,10 +16,10 @@
         </label>
         <input id="title" name="title" type="text" placeholder="Post title" required>
 
-        <label for="">
+        <label for="body">
             Body
         </label>
-        <input id="body" name="body" type="text" placeholder="Post body" required>
+        <textarea id="body" name="body" type="text" placeholder="Post body" required> </textarea>
         <button type="submit">
             Submit
         </button>
