@@ -1,16 +1,30 @@
 <!DOCTYPE HTML>
 
+<link rel="stylesheet" href="../public/form.css">
+
 <html>
 <%- include("./partials/navbar.ejs") %>
 <%- include("./partials/errors.ejs") %>
 <%- include("./partials/msgs.ejs") %>
 
 <body>
+    <% if (!locals.user) { %>
+
+    <p>Log in first</p>
+
+    <% } else if (!locals.user?.is_member) { %>
+
+    <p>Become a member to view this page</p>
+
+    <% } else { %>
+
     <form method="POST">
         <label for="password">Super secret password</label>
         <input name="password" id="password" type="text" placeholder="Admin password">
         <button type="submit">Submit</button>
     </form>
+
+    <% } %>
 </body>
 
 </html>

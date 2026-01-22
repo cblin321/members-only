@@ -17,6 +17,7 @@ nav {
 .nav-options {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     min-width: 12em;
 }
 
@@ -35,10 +36,23 @@ nav {
     height: var(--font-size-lg);
 }
 
-.user-container {
+.dropdown-header {
     display: flex;
     align-items: center;
-    gap: .5em;
+    padding: var(--space-8);
+    gap: .25em;
+}
+
+.dropdown {
+    border: 1px solid var(--border);
+    background-color: var(--accent-400);
+    border-radius: var(--border-radius);
+}
+
+.dropdown-btn {
+    background-color: var(--bg-700);
+    color: var(--font-color);
+    text-align: left;
 }
 
 .user-container p {
@@ -47,4 +61,14 @@ nav {
 
 .dropdown-chevron {
     width: var(--font-size-base);
+    transform: rotate(180deg);
+    margin-left: .25em;
+}
+
+.dropdown-chevron.active {
+    transform: rotate(0);
+}
+
+.dropdown-btn {
+    border: none;
 }
