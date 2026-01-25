@@ -1,7 +1,7 @@
 @import "./globals.css";
 
 :root {
-    --content-width: 30%;
+    --content-width: 50%;
 }
 
 h1 {
@@ -45,6 +45,14 @@ input {
     height: var(--space-40);
     font-size: 1em;
     background-color: var(--bg-600);
+}
+
+form textarea {
+    background-color: var(--bg-600);
+    color: var(--font-color);
+    border: 1px solid var(--border);
+    padding: var(--space-12);
+    height: 6em;
 }
 
 input::placeholder {

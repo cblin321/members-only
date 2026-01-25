@@ -61,8 +61,14 @@ button:hover {
     color: var(--font-color);
 }
 
-input:focus {
+input:focus,
+textarea:focus {
     outline: none;
+}
+
+textarea {
+    resize: none;
+    font-family: "Nunito Sans";
 }
 
 .dropdown {
