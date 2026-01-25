@@ -38,11 +38,14 @@ refactor err handling, use flash messaging
 styling
     login (done)
     registration (done)
+    create post (done)
     msgs
     errors
         member registration
-        admin registration
+        admin registration 
     posts (in progress)
         delete button alignment
-    navbar (in progress)
-    create post (in progress)
+    navbar (done)
+        dropdown (in progress)
+    responsive design
+        word wrap on post body

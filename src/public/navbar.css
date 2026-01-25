@@ -50,9 +50,13 @@ nav {
 }
 
 .dropdown-btn {
-    background-color: var(--bg-700);
+    background-color: var(--bg-400);
     color: var(--font-color);
     text-align: left;
+}
+
+.menu-list {
+    border: .25px solid var(--border);
 }
 
 .user-container p {
@@ -69,6 +73,15 @@ nav {
     transform: rotate(0);
 }
 
+li:first-of-type button {
+    border-radius: 8px 8px 0 0;
+}
+
+li:last-of-type button {
+    border-radius: 0 0 8px 8px;
+}
+
 .dropdown-btn {
     border: none;
+    padding: var(--space-8);
 }
