@@ -82,6 +82,17 @@ li:last-of-type button {
 }
 
 .dropdown-btn {
+    display: flex;
     border: none;
     padding: var(--space-8);
+    gap: var(--space-8);
+    transition: background-color .2s ease-in;
+}
+
+.dropdown-btn:hover {
+    background-color: var(--bg-700);
+}
+
+.dropdown-btn svg {
+    width: var(--font-size-lg);
 }

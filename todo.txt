@@ -39,6 +39,8 @@ styling
     login (done)
     registration (done)
     create post (done)
+    navbar (done)
+        dropdown (done)
     msgs
     errors
         member registration
@@ -46,5 +48,3 @@ styling
     posts (in progress)
         delete button alignment
         word wrap on post body
-    navbar (done)
-        dropdown (in progress)
