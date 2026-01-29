@@ -111,8 +111,8 @@ const generate_validators = (fields) => {
 index_router.get("/", async (req, res) => {
     const posts = await forum_controller.get_all_posts();
     if (posts?.errors) {
-        posts.errors((err) => req.flash("errors", err));
-        return res.status(500).render("/", { errors: req.flash("errors") });
+        posts.errors.forEach((err) => req.flash("errors", err));
+        return res.status(500).render("index", { errors: req.flash("errors") });
     }
 
     const msgs = req.flash("msgs");

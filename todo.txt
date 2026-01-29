@@ -45,7 +45,6 @@ styling
         admin registration 
     posts (in progress)
         delete button alignment
+        word wrap on post body
     navbar (done)
         dropdown (in progress)
-    responsive design
-        word wrap on post body
