@@ -1,0 +1,18 @@
+.error {
+    background-color: var(--complementary-500-faded);
+    border: 1px solid var(--complementary-500);
+    width: 50%;
+    height: 100%;
+    padding: var(--space-8) var(--space-12);
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+}
+
+.error-container {
+    display: flex;
+    justify-content: center;
+}
+
+.error-container p {
+    color: var(--complementary-500);
+}

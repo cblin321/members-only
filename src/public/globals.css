@@ -1,7 +1,8 @@
 :root {
     --accent-500: hsl(262 20.8% 38.2%);
     --accent-400: hsl(262 18.8% 50.2%);
-    --complementary-500: hsl(342, 41%, 38%);
+    --complementary-500: hsl(0, 81%, 65%);
+    --complementary-500-faded: hsla(0, 61%, 35%, .9);
     --accept: hsl(145 41% 38%);
 
     --bg-400: hsl(262 2.6% 12.8%);
