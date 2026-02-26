@@ -1,20 +1,20 @@
 <!DOCTYPE HTML>
 
-<html>
+<html lang="en">
 <%- include("./partials/navbar.ejs") %>
-<%- include("./partials/errors.ejs") %>
-<%- include("./partials/msgs.ejs") %>
+    <%- include("./partials/errors.ejs") %>
+        <%- include("./partials/msgs.ejs") %>
 
-<body>
-    <div class="content">
-        <% if (locals.user) { %>
-        <p class="welcome-msg">
-            Welcome, <%= locals.user.name %>!
-        </p>
-        <% } %>
-        <%- include("./partials/posts.ejs") %>
-    </div>
+            <body>
+                <div class="content">
+                    <% if (locals.user) { %>
+                        <p class="welcome-msg">
+                            Welcome, <%= locals.user.name %>!
+                        </p>
+                        <% } %>
+                            <%- include("./partials/posts.ejs") %>
+                </div>
 
-</body>
+            </body>
 
 </html>

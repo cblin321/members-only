@@ -39,17 +39,32 @@
     gap: var(--space-20);
     width: 100%;
     align-items: center;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .post-title {
     /* line-height: 1.05; */
 }
 
-
-.post-body {}
+.post-body {
+    margin-bottom: var(--space-8);
+}
 
 .post-date {
     color: var(--font-color-muted);
+}
+
+.post-delete {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-delete button {
+    background-color: var(--complementary-500) !important;
+    width: var(--space-100);
+    height: var(--space-28);
+    font-size: var(--font-size-base);
 }
 
 .post-author {

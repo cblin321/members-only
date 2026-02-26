@@ -45,6 +45,6 @@ styling
     errors (done)
         member registration
         admin registration 
-    posts (in progress)
+    posts (done)
         delete button alignment
         word wrap on post body
