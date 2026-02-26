@@ -1,6 +1,6 @@
-.error {
-    background-color: var(--complementary-500-faded);
-    border: 1px solid var(--complementary-500);
+.msg {
+    background-color: var(--info-300);
+    border: 1px solid var(--info-800);
     width: 50%;
     height: 100%;
     padding: var(--space-8) var(--space-12);
@@ -8,12 +8,12 @@
     border-radius: var(--border-radius);
 }
 
-.error-container {
+.msg-container {
     display: flex;
     justify-content: center;
     margin-bottom: var(--space-28);
 }
 
-.error-container p {
-    color: var(--complementary-500);
+.msg-container p {
+    color: var(--info-800);
 }

@@ -41,8 +41,8 @@ styling
     create post (done)
     navbar (done)
         dropdown (done)
-    msgs
-    errors
+    msgs (done)
+    errors (done)
         member registration
         admin registration 
     posts (in progress)

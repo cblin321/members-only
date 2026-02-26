@@ -1,8 +1,13 @@
 <!DOCTYPE HTML>
+<link rel="stylesheet" href="./msgs.css">
 <% if (locals.msgs && Array.isArray(locals.msgs)) { %>
-<% locals.msgs.map(msg=> { %>
-<p>
-    <%= msg %>
-</p>
-<% }) %>
-<% } %>
+    <div class="msg-container">
+        <% locals.msgs.map(msg=> { %>
+            <div class="msg">
+                <p>
+                    <%= msg %>
+                </p>
+            </div>
+            <% }) %>
+    </div>
+    <% } %>

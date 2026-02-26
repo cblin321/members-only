@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <link rel="stylesheet" href="./errors.css">
 <% if (locals.errors && Array.isArray(locals.errors)) { %>
-    <% locals.errors.map(err=> { %>
-        <div class="error-container">
+    <div class="error-container">
+        <% locals.errors.map(err=> { %>
             <div class="error">
                 <p>
                     <%= err.msg %>
                 </p>
             </div>
-        </div>
-        <% }) %>
-            <% } %>
+            <% }) %>
+    </div>
+    <% } %>
